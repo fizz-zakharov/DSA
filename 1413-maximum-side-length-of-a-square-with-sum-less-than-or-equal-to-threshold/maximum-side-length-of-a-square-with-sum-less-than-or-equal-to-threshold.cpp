@@ -28,23 +28,21 @@ public:
                 int low = ans + 1;
                 int high = min(i + 1, j + 1);
 
-                while (low <= high) {
+                while(low <= high){
                     int mid = (low + high) / 2;
 
                     int r1 = i - mid + 1;
                     int c1 = j - mid + 1;
 
                     int sum = total[i][j];
-                    if (r1 > 0) sum -= total[r1 - 1][j];
-                    if (c1 > 0) sum -= total[i][c1 - 1];
-                    if (r1 > 0 && c1 > 0) sum += total[r1 - 1][c1 - 1];
-
-                    if (sum <= threshold) {
+                    if(r1>0)sum-=total[r1-1][j];
+                    if(c1>0)sum-=total[i][c1-1];
+                    if (r1>0&&c1>0)sum+=total[r1-1][c1-1];
+                    if(sum<=threshold){
                         ans = mid;
                         low = mid + 1;
-                    } else {
-                        high = mid - 1;
-                    }
+                    } 
+                    else high = mid - 1;
                 }
             }
         }

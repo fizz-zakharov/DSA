@@ -14,12 +14,12 @@ public:
                 bool exists=false;
                 for(int k=i+1;k<n;k++){
                     bool valid=true;
-                    for(int j=i+1;j<n;j++){
+                    for(int j=i+1;j<n;j++){ //check if we have got the correct row
                         if(grid[k][j]){
                             valid=false;
                         }
                     }
-                    if(valid){
+                    if(valid){ //if the correct row then swap to the correct position
                         exists=true;
                         for(int p=k;p>i;p--){
                             swap(grid[p],grid[p-1]);
@@ -28,7 +28,7 @@ public:
                         break;
                     }
                 }
-                if(!exists)return -1;
+                if(!exists)return -1; //if we never got the correct row
             }
         }
         return c;

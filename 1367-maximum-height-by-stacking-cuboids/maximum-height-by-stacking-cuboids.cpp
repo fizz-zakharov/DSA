@@ -1,31 +1,21 @@
 class Solution {
-private:
-    int fn(int i,int w,int l,int h,vector<vector<int>>&v){
-        if(i>=v.size())return 0;
-
-        int a=v[i][0];
-        int b=v[i][1];
-        int c=v[i][2];
-
-        int ans=0;
-        //skip current cuboid;
-        ans=fn(i+1,w,l,h,v);
-
-        //take
-        if (a >= w && b >= l && c>=h)ans = max(ans, c + fn(i+1, a, b, c, v));
-
-        return ans;
-
-    }
 public:
-    int maxHeight(vector<vector<int>>& cuboids){
+    int maxHeight(vector<vector<int>>& cuboids) {
         int n=cuboids.size();
-        
-        for(auto &it:cuboids){
-            sort(it.begin(),it.end());
-        }
-        sort(cuboids.begin(),cuboids.end());
+        for(auto &it:cuboids)sort(it.begin(),it.end());
 
-        return fn(0,0,0,0,cuboids);
+        sort(cuboids.begin(),cuboids.end());
+        int ans=0;
+        vector<int>dp(n,0);
+        for(int i=0;i<n;i++){
+            dp[i]=cuboids[i][2];
+            for(int j=0;j<i;j++){
+                if(cuboids[i][0]>=cuboids[j][0]&&cuboids[i][1]>=cuboids[j][1]&&cuboids[i][2]>=cuboids[j][2]){
+                    dp[i]=max(dp[i],dp[j]+cuboids[i][2]);
+                }
+            }
+            ans=max(ans,dp[i]);
+        }
+        return ans;
     }
 };

@@ -1,25 +1,38 @@
 class Solution {
-private:
-    bool fn(int i,int j,int k,string& s1, string& s2, string& s3,vector<vector<vector<int>>>&dp){
-        if(k<0)return (i<0&&j<0);
-        if(dp[i+1][j+1][k]!=-1)return dp[i+1][j+1][k];
-
-        bool a=false;
-        if(i>=0&&s3[k]==s1[i])a=fn(i-1,j,k-1,s1,s2,s3,dp);
-        bool b=false;
-        if(j>=0&&s3[k]==s2[j])b=fn(i,j-1,k-1,s1,s2,s3,dp);
-        
-        return dp[i+1][j+1][k]= (a||b);
-
-    }
 public:
     bool isInterleave(string s1, string s2, string s3) {
-        int n=s1.size();
-        int m=s2.size();
-        int s=s3.size();
-        if(n+m!=s)return false;
-        vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(m+1,vector<int>(s,-1))); 
+        int n = s1.size();
+        int m = s2.size();
+        
+        if(n + m != s3.size()) return false;
 
-        return fn(n-1,m-1,s-1,s1,s2,s3,dp);
+        vector<vector<bool>> dp(n+1, vector<bool>(m+1, false));
+
+        dp[0][0] = true;
+
+        // First column
+        for(int i = 1; i <= n; i++) {
+            dp[i][0] = dp[i-1][0] && (s1[i-1] == s3[i-1]);
+        }
+
+        // First row
+        for(int j = 1; j <= m; j++) {
+            dp[0][j] = dp[0][j-1] && (s2[j-1] == s3[j-1]);
+        }
+
+        // Fill rest
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= m; j++) {
+                int k = i + j - 1;
+
+                if(s1[i-1] == s3[k])
+                    dp[i][j] = dp[i][j] || dp[i-1][j];
+
+                if(s2[j-1] == s3[k])
+                    dp[i][j] = dp[i][j] || dp[i][j-1];
+            }
+        }
+
+        return dp[n][m];
     }
 };

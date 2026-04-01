@@ -9,7 +9,6 @@ public:
         vector<int> temp=positions;
         sort(positions.begin(),positions.end());
         stack<int> s; //stack of positions
-        vector<int> left;
         for(int i=0;i<n;i++){
             int health=m[positions[i]].first;
             char direction=m[positions[i]].second;
@@ -17,32 +16,25 @@ public:
                 s.push(positions[i]);
             }
             else{
-                bool alive=false;
                 while(!s.empty()){
                     if(m[s.top()].first==health){
                         m[s.top()].first=0;
                         s.pop();
-                        health=0;
-                        alive=false; //left died
+                        health=0;//left died
                         break;
                     }
                     if(m[s.top()].first>health){
                         m[s.top()].first--;
                         health=0;
-                        alive=false; 
                         break; //current left died
                     }
                     if(m[s.top()].first<health){
                         health--;
                         m[s.top()].first=0;
                         s.pop(); //top right died and left is still alive
-                        alive=true;
                     }
                 }
                 m[positions[i]].first=health;
-                if(alive){
-                    left.push_back(positions[i]);
-                }
             }
         }
         vector<int> ans;

@@ -18,12 +18,11 @@ bool fn(int i,string& s,int k,int c){
     return dp[i][c]= false;
 }
 public:
-    static bool cmp(string &a,string &b){
-        return a.size()<b.size();
-    }
     vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
         int n=words.size();
-        sort(words.begin(),words.end(),cmp);
+        sort(words.begin(),words.end(),[](string& a,string& b){
+            return a.size()<b.size();
+        });
         for(int i=0;i<n;i++){
             memset(dp,-1,sizeof(dp));
             if(fn(0,words[i],words[i].size(),0))ans.push_back(words[i]);

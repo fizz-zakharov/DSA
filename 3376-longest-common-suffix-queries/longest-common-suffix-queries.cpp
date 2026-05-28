@@ -34,7 +34,10 @@ public:
                 pool[node].len=s.size();
                 pool[node].ind=idx;
             }
-            if(i==n){pool[node].end=true;break;}
+            if(i==n){
+                pool[node].end=true;
+                break;
+            }
             int c=s[i]-'a';
             if(pool[node].children[c]==-1)pool[node].children[c]=newNode();
             node=pool[node].children[c];

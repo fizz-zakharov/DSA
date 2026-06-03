@@ -26,7 +26,8 @@ public:
         queue<string> q;
         q.push("");
         while(!q.empty()){
-            string cur=q.front();q.pop();
+            string cur=q.front();
+            q.pop();
             for(char c:st){
                 string next=cur+c;
                 if(ch(next,s,k)){

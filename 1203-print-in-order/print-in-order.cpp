@@ -1,6 +1,6 @@
 class Foo {
-    std::mutex m;
-    std::condition_variable cv;
+    mutex m;
+    condition_variable cv;
     int turn=0;
 public:
     Foo() {
@@ -16,7 +16,7 @@ public:
     }
 
     void second(function<void()> printSecond) {
-        std::unique_lock<std::mutex> lock(m);
+        unique_lock<mutex> lock(m);
         // printSecond() outputs "second". Do not change or remove this line.
         while(turn!=1){
             cv.wait(lock);
@@ -27,7 +27,7 @@ public:
     }
 
     void third(function<void()> printThird) {
-        std::unique_lock<std::mutex> lock(m);
+        unique_lock<mutex> lock(m);
         // printThird() outputs "third". Do not change or remove this line.
         while(turn!=2){
             cv.wait(lock);

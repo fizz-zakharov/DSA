@@ -14,7 +14,7 @@ public:
         int sum=0;
         int len=0;
         ListNode* tail=head;
-        map<ListNode*,ListNode*> par;
+        unordered_map<ListNode*,ListNode*> par;
         while(tail->next!=NULL){
             len++;
             par[tail->next]=tail;

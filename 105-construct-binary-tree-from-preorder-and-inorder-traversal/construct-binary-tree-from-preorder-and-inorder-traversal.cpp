@@ -11,7 +11,7 @@
  */
 class Solution {
 private:
-    void fn(int i,TreeNode* node,vector<int>& pre,vector<int>& in,map<int,int>&m,int l,int r){
+    void fn(int i,TreeNode* node,vector<int>& pre,vector<int>& in,unordered_map<int,int>&m,int l,int r){
         if(i>=pre.size())return;
 
         for(int j=i+1;j<pre.size();j++){
@@ -34,7 +34,7 @@ private:
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         int n=preorder.size();
-        map<int,int> m;
+        unordered_map<int,int> m;
         for(int i=0;i<n;i++)m[inorder[i]]=i;
         TreeNode* root=new TreeNode(preorder[0]);
         fn(0,root,preorder,inorder,m,0,n-1);

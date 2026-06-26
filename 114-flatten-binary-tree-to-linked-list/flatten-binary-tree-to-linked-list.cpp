@@ -10,18 +10,25 @@
  * };
  */
 class Solution {
-private:
-    void fn(TreeNode* node,TreeNode* &prev){
-        if(node==NULL)return;
-        fn(node->right,prev);
-        fn(node->left,prev);
-        node->left=NULL;
-        node->right=prev;
-        prev=node;
-    }
 public:
     void flatten(TreeNode* root) {
-        TreeNode* prev=NULL;
-        fn(root,prev);
+        //morris traversal
+        TreeNode* cur=root;
+        while(cur){
+            if(cur->left==NULL)cur=cur->right;
+            else{
+                TreeNode* prev=cur->left;
+                while(prev->right){
+                    prev=prev->right;
+                }
+                if(cur->right!=NULL){
+                    prev->right=cur->right;
+                }
+                else prev->right=NULL;
+                cur->right=cur->left;
+                cur->left=NULL;
+                cur=cur->right;
+            }
+        }
     }
 };

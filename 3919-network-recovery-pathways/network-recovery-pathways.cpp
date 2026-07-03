@@ -35,7 +35,8 @@ private:
                 if(current_dist != LLONG_MAX && current_dist+wt<minpathcost[adjnode]){
                     minpathcost[adjnode]=current_dist+wt;
                 }
-                if(--indegree[adjnode]==0) q.push(adjnode);
+                indegree[adjnode]--;
+                if(indegree[adjnode]==0)q.push(adjnode);
             }
         }
         return minpathcost[n-1]<=k;

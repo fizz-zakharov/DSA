@@ -2,8 +2,7 @@ class Solution {
 public:
     long long wonderfulSubstrings(string word) {
         int n=word.size();
-        long long freq[1024];
-        memset(freq,0,sizeof(freq));
+        long long freq[1024]={0};
         int mask=0;
         long long ans=0;
         freq[0]=1;

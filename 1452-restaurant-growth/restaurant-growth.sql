@@ -16,6 +16,6 @@ ROUND((
 ) / 7, 2) AS average_amount
 FROM (SELECT DISTINCT visited_on FROM Customer) AS x
 JOIN (SELECT DISTINCT visited_on FROM Customer) AS y
-  ON DATEDIFF(x.visited_on, y.visited_on) = 6
+ON DATEDIFF(x.visited_on, y.visited_on) = 6
 GROUP BY x.visited_on, y.visited_on
 ORDER BY x.visited_on;

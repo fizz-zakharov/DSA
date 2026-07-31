@@ -15,14 +15,9 @@ public:
                 cur=heights[i];
             }
         }
-        for(int i=0;i<n;i++){
-            cout<<diff[i]<<' ';
-        }
-        cout<<'\n';
         priority_queue<int,vector<int>,greater<int>> pq;
         int ans=-1;
         for(int i=0;i<n;i++){
-            cout<<"bricks: "<<bricks<<" "<<"ladders: "<<ladders<<'\n';
             if(diff[i]!=0){
                 if(ladders>0){
                     pq.push(diff[i]);

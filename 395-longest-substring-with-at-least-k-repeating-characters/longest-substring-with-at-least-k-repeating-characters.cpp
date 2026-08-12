@@ -19,18 +19,18 @@ public:
                 }
                 if(ch){
                     int l=-1;
-                    bool changed=true;
-                    while(changed){
-                        changed=false;
+                    bool ch=true;
+                    while(ch){
+                        ch=false;
                         for(int j=0;j<26;j++){
                             int cnt=pre[i][j]-(l==-1?0:pre[l][j]);
                             if(cnt>0 && cnt<k){
-                                l=m[j];      // exclude this char entirely
-                                changed=true;
+                                l=m[j];      
+                                ch=true;
                             }
                         }
                     }
-                    ans=max(ans,i-l);       // l==-1 naturally gives i+1
+                    ans=max(ans,i-l);       
                 }
             }
         }

@@ -11,13 +11,13 @@
  */
 class Solution {
 private:
-    int fn(TreeNode* node,TreeNode* root,int& ans){
+    int fn(TreeNode* node,int& ans){
         if(!node)return 1;
         if(node->left==NULL && node->right==NULL){
             return -1;
         }
-        int a=fn(node->left,root,ans);
-        int b=fn(node->right,root,ans);
+        int a=fn(node->left,ans);
+        int b=fn(node->right,ans);
         if(a==-1 || b==-1){
             ans++;
             return 0;
@@ -34,7 +34,7 @@ private:
 public:
     int minCameraCover(TreeNode* root) {
         int ans=0;
-        int x=fn(root,root,ans);
+        int x=fn(root,ans);
         if(x==-1)ans++;
         return ans;
     }

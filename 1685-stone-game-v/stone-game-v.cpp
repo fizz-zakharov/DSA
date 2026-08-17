@@ -1,29 +1,35 @@
 class Solution {
 private:
-    int fn(int i,int j,vector<int>&v,vector<vector<int>>&dp){
-        if(i>=j)return 0;
+    int n;
+    int dp[502][502];
+    int fn(int i,int j,vector<int>&v,vector<int>&pre){
+        if(i==j){
+            return 0;
+        }
         if(dp[i][j]!=-1)return dp[i][j];
-        int r=0;
-        for(int k=i;k<=j;k++){
-            r+=v[k];
-        }
-        int l=0;
-        int a=INT_MIN,b=INT_MIN,c=INT_MIN;
+        int ans=0;
         for(int k=i;k<j;k++){
-            l+=v[k];
-            r-=v[k];
-            if(l>r)a=max(a,r+fn(k+1,j,v,dp));
-            if(r>l)b=max(b,l+fn(i,k,v,dp));
-            if(l==r){
-                c=max(c,max(r+fn(k+1,j,v,dp),l+fn(i,k,v,dp)));
+            int lsum=pre[k+1]-pre[i];
+            int rsum=pre[j+1]-pre[k+1];
+            if(lsum==rsum){
+                ans=max(ans,lsum+max(fn(i,k,v,pre),fn(k+1,j,v,pre)));
             }
+            else if(lsum>rsum){
+                ans=max(ans,rsum+fn(k+1,j,v,pre));
+            }
+            else ans=max(ans,lsum+fn(i,k,v,pre));
         }
-        return dp[i][j]= max({a,b,c});
+        return dp[i][j] = ans;
     }
 public:
     int stoneGameV(vector<int>& stoneValue) {
-        int n=stoneValue.size();
-        vector<vector<int>> dp(n,vector<int>(n,-1));
-        return fn(0,n-1,stoneValue,dp);
+        n=stoneValue.size();
+        vector<int> pre(n+1,0);
+        for(int i=0;i<n;i++){
+            pre[i+1]=pre[i]+stoneValue[i];
+        }
+        memset(dp,-1,sizeof(dp));
+        int ans=fn(0,n-1,stoneValue,pre);
+        return ans;
     }
 };

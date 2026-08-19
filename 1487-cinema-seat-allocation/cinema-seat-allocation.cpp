@@ -16,9 +16,10 @@ public:
                 k++;
             }
             else{
-                for(int j=0;j<10;j++){
+                /*for(int j=0;j<10;j++){
                     cout<<temp[j]<<" ";
                 }
+                */
                 cout<<'\n';
                 bool ch=false;
                 if(temp[1]==0 && temp[2]==0 && temp[3]==0 && temp[4]==0){

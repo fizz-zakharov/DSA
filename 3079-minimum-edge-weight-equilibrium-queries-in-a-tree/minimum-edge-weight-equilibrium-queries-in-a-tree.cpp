@@ -30,7 +30,7 @@ private:
         if(depth[a]<depth[b]) swap(a,b);
         int diff = depth[a]-depth[b];
         for(int j=0;j<col;j++){
-            if((diff>>j)&1) a=dp[a][j];
+            if((1<<j)&diff) a=dp[a][j];
         }
         if(a==b)return a;
 

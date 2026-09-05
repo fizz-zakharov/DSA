@@ -1,5 +1,6 @@
 class Solution {
 private:
+    int n1;
     const int col=18;
     vector<vector<pair<int,int>>> adj;
     vector<vector<int>> freq;
@@ -7,30 +8,22 @@ private:
     vector<int> depth;
     vector<int> vis;
 
-    void dfs(int start){
-        stack<int> st;
-        st.push(start);
-        vis[start]=1;
-        dp[start][0]=start;
-        depth[start]=0;
-
-        while(!st.empty()){
-            int node=st.top();
-            st.pop();
-            for(auto& it:adj[node]){
-                int v=it.first;
-                int w=it.second;
-                if(vis[v])continue;
-                vis[v]=1;
-                depth[v]=depth[node]+1;
-                dp[v][0]=node;
-                for(int i=1;i<=26;i++){
-                    freq[v][i]=freq[node][i];
-                }
-                freq[v][w]+=1;
-                st.push(v);
+    void dfs(int node,int par,int d){
+        if(vis[node])return;
+        vis[node]=1;
+        depth[node]=d;
+        dp[node][0]=(par!=-1)?par:node;
+        for(auto it:adj[node]){
+            int v=it.first;
+            int w=it.second;
+            if(vis[v])continue;
+            for(int i=1;i<=26;i++){
+                freq[v][i]=freq[node][i];
             }
+            freq[v][w]+=1;
+            dfs(v,node,d+1);
         }
+        return;
     }
 
     int lca(int a,int b){
@@ -49,7 +42,6 @@ private:
         }
         return dp[a][0];
     }
-
 public:
     vector<int> minOperationsQueries(int n, vector<vector<int>>& edges, vector<vector<int>>& queries) {
         adj.resize(n);
@@ -64,7 +56,7 @@ public:
             adj[u].push_back({v,w});
             adj[v].push_back({u,w});
         }
-        dfs(0);
+        dfs(0,-1,0);
         for(int j=1;j<col;j++){
             for(int node=0;node<n;node++){
                 int mid=dp[node][j-1];
@@ -81,8 +73,10 @@ public:
             int tot=0;
             for(int i=1;i<=26;i++){
                 int c=(freq[u][i]-freq[up][i])+(freq[v][i]-freq[up][i]);
+                
                 tot+=c;
                 mx=max(mx,c);
+                
             }
             ans[j] = tot-mx;
             j++;

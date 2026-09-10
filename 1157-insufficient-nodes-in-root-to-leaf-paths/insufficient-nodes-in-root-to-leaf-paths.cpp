@@ -12,7 +12,7 @@
 class Solution {
 private:
     bool n=false;
-    map<TreeNode*,int> sub;
+    unordered_map<TreeNode*,int> sub;
     int dfs1(TreeNode* node){
         if(!node)return 0;
         int a=dfs1(node->left);

@@ -10,7 +10,7 @@ private:
         bool ans=false;
         for(int j=i;j<n;j++){
             if(mask&(1<<j))continue;
-            if(sum+v[j]>val)continue;
+            if(sum+v[j]>val)continue;  //correction
             int newmask=mask|(1<<j);
             ans=ans||(fn(i+1,newmask,sum+v[j],k,v));
         }

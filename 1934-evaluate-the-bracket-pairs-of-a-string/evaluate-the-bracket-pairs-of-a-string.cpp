@@ -32,7 +32,7 @@ public:
                 }
                 i--;
                 string temp=s.substr(start,len);
-                cout<<temp<<'\n';
+                //cout<<temp<<'\n';
                 if(m.find(temp)!=m.end()){
                     ans+=m[temp];
                 }

@@ -6,13 +6,8 @@ class Solution:
                 return -1
             else: 
                 return 0
-        mx='a'
-        mn='z'
-        for i in range(n):
-            if s[i]>mx:
-                mx=s[i]
-            if s[i]<mn:
-                mn=s[i]
+        mx=max(s)
+        mn=min(s)
         cmx=0
         cmn=0
         for i in range(n):
